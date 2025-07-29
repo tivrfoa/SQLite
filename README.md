@@ -26,9 +26,8 @@ You should choose a mature and [battle-tested](https://www.sqlite.org/testing.ht
 
 Be careful with forks and rewrites — there’s often little to gain, but a lot to lose.
 
-There's probably an extension for everything you need,
-enabling you to achieve your goal while maintaining the stability and portability
-of the core SQLite library.
+The great extension ecosystem enables you to achieve your goal while maintaining
+the stability and portability of the core SQLite library.
 
 - [How SQLite is tested](#how-sqlite-is-tested)
 - [Extensions - by Gemini](#extensions---by-gemini)
@@ -37,6 +36,7 @@ of the core SQLite library.
 - [How to create isolated Copy-on-Write branches - by Gemini](#how-to-create-isolated-copy-on-write-branches---by-gemini)
 - [How to create isolated Copy-on-Write branches - by ChatGPT](#how-to-create-isolated-copy-on-write-branches---by-chatgpt)
 - [Extensions for vector search, native similarity search - by ChatGPT](#extensions-for-vector-search-native-similarity-search---by-chatgpt)
+- [Extensions for vector search, native similarity search - by Gemini](#extensions-for-vector-search-native-similarity-search---by-gemini)
 
 ## How SQLite is tested
 
@@ -516,3 +516,42 @@ This gives true CoW at the filesystem level with **zero duplication until writes
 | Custom vector ops / metrics | [sqlite-vec](https://github.com/axibase/sqlite-vec)            |
 
 ---
+
+## Extensions for vector search, native similarity search - by Gemini
+
+The best extension for native vector and similarity search in SQLite is **sqlite-vss**.
+
+-----
+
+### sqlite-vss
+
+**sqlite-vss** (SQLite Vector Similarity Search) is a loadable extension that lets you store vector embeddings and perform efficient similarity searches on them directly within SQLite.
+
+  * **How it works**: It integrates the powerful **Faiss** (Facebook AI Similarity Search) library into SQLite. It provides a virtual table where you can store high-dimensional vectors. When you perform a search, it uses Faiss's advanced **Approximate Nearest Neighbor (ANN)** algorithms to find the most similar vectors with incredible speed, even on millions of rows.
+  * **Best for**: AI/ML applications 🤖. It's ideal for implementing semantic search, finding related documents, image similarity, recommendation engines, and other tasks that rely on comparing vector embeddings.
+
+-----
+
+### Usage Example
+
+With `sqlite-vss`, you can find the top `k` items most similar to a query vector.
+
+1.  **Create a virtual table** to store your vectors:
+
+    ```sql
+    CREATE VIRTUAL TABLE vss_demo USING vss0(
+      embedding(128) -- 128 is the vector dimension
+    );
+    ```
+
+2.  **Search for similar vectors**:
+
+    ```sql
+    SELECT rowid, distance
+    FROM vss_demo
+    WHERE vss_search(
+      embedding,          -- The column containing vectors
+      ? -- Your query vector
+    )
+    LIMIT 10; -- Find the 10 most similar items
+    ```
