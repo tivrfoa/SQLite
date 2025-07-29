@@ -13,9 +13,8 @@ SQLite is likely used more than all other database engines combined. Billions an
 - Every Android device
 - Every iPhone and iOS device
 - Every Mac
-- Every Windows10 machine
 - Every Firefox, Chrome, and Safari web browser
-...
+- ...
 
 ---
 
@@ -23,13 +22,20 @@ SQLite is likely used more than all other database engines combined. Billions an
 
 Losing it means losing control of your business.
 
-You should choose a mature and battle-tested database software.
+You should choose a mature and [battle-tested](https://www.sqlite.org/testing.html) database software.
 
 Be careful with forks and rewrites — there’s often little to gain, but a lot to lose.
 
 There's probably an [extension](#list-of-sqlite-extensions---by-chatgpt) for everything that
 you want to do, enabling you to achive your goal while maintaining the stability and portability
 of the core SQLite library.
+
+- [How SQLite is tested](#how-sqlite-is-tested)
+- [Extensions - by Gemini](#extensions---by-gemini)
+- [List of SQLite Extensions - by ChatGPT](#list-of-sqlite-extensions---by-chatgpt)
+- [Extensions for Sync & Replication - by ChatGPT](#sqlite-extensions-for-sync--replication---by-chatgpt)
+- [How to create isolated Copy-on-Write branches - by Gemini](#how-to-create-isolated-copy-on-write-branches---by-gemini)
+- [How to create isolated Copy-on-Write branches - by ChatGPT](#how-to-create-isolated-copy-on-write-branches---by-chatgpt)
 
 ## How SQLite is tested
 
@@ -40,12 +46,6 @@ The reliability and robustness of SQLite is achieved in part by thorough and car
 As of version 3.42.0 (2023-05-16), the SQLite library consists of approximately 155.8 KSLOC of C code. (KSLOC means thousands of "Source Lines Of Code" or, in other words, lines of code excluding blank lines and comments.) By comparison, the project has 590 times as much test code and test scripts - 92053.1 KSLOC.
 
 ---
-
-- [Extensions - by Gemini](#extensions---by-gemini)
-- [List of SQLite Extensions - by ChatGPT](#list-of-sqlite-extensions---by-chatgpt)
-- [Extensions for Sync & Replication - by ChatGPT](#sqlite-extensions-for-sync--replication---by-chatgpt)
-- [How to create isolated Copy-on-Write branches - by Gemini](#how-to-create-isolated-copy-on-write-branches---by-gemini)
-- [How to create isolated Copy-on-Write branches - by ChatGPT](#how-to-create-isolated-copy-on-write-branches---by-chatgpt)
 
 ## Extensions - by Gemini
 
