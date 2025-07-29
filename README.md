@@ -26,8 +26,8 @@ You should choose a mature and [battle-tested](https://www.sqlite.org/testing.ht
 
 Be careful with forks and rewrites — there’s often little to gain, but a lot to lose.
 
-There's probably an [extension](#list-of-sqlite-extensions---by-chatgpt) for everything that
-you want to do, enabling you to achive your goal while maintaining the stability and portability
+There's probably an extension for everything you need,
+enabling you to achieve your goal while maintaining the stability and portability
 of the core SQLite library.
 
 - [How SQLite is tested](#how-sqlite-is-tested)
@@ -36,6 +36,7 @@ of the core SQLite library.
 - [Extensions for Sync & Replication - by ChatGPT](#sqlite-extensions-for-sync--replication---by-chatgpt)
 - [How to create isolated Copy-on-Write branches - by Gemini](#how-to-create-isolated-copy-on-write-branches---by-gemini)
 - [How to create isolated Copy-on-Write branches - by ChatGPT](#how-to-create-isolated-copy-on-write-branches---by-chatgpt)
+- [Extensions for vector search, native similarity search - by ChatGPT](#extensions-for-vector-search-native-similarity-search---by-chatgpt)
 
 ## How SQLite is tested
 
@@ -416,4 +417,102 @@ This gives true CoW at the filesystem level with **zero duplication until writes
 
 ---
 
-Let me know if you want a specific method implemented in code or combined with CRDT-style sync or branching history.
+## Extensions for vector search, native similarity search - by ChatGPT
+
+### 🧠 1. [**sqlite-vss**](https://github.com/asg017/sqlite-vss) (by [@asg017](https://github.com/asg017))
+
+> **The most mature native vector search extension for SQLite.**
+
+* **Implements**: FAISS-like nearest neighbor search
+* **Features**:
+
+  * Supports `L2`, `dot product`, and `cosine similarity`
+  * Stores `float32` vectors (`BLOB`) in a native SQLite virtual table
+  * Uses **HNSW (Hierarchical Navigable Small World)** and **flat index**
+* **Example usage**:
+
+  ```sql
+  CREATE VIRTUAL TABLE vecs USING vss0(
+    id INTEGER PRIMARY KEY,
+    embedding BLOB
+  );
+
+  SELECT * FROM vecs
+  WHERE vss_search(embedding, ?, 5);
+  ```
+* **Written in**: Rust
+* 🔗 [https://github.com/asg017/sqlite-vss](https://github.com/asg017/sqlite-vss)
+
+---
+
+### 🔍 2. [**vector-sqlite**](https://github.com/sqlite/vector-sqlite) (official SQLite experiment)
+
+> **Experimental extension from SQLite team** for fast similarity search.
+
+* Supports:
+
+  * `vector_cosine_distance`
+  * `vector_inner_product`
+  * Efficient vector index using SQLite virtual tables
+
+* Early-stage but tightly integrated
+
+* Best used via [sqlpkg](https://pkg.go.dev/github.com/sqlite/sqlpkg)
+
+* 🔗 [https://github.com/sqlite/vector-sqlite](https://github.com/sqlite/vector-sqlite)
+
+---
+
+### 🧮 3. [**sqlite-extension-vector0**](https://github.com/paratte/sqlite-extension-vector0)
+
+> A lean and embeddable SQLite extension using `KNN` and cosine similarity.
+
+* Stores vectors as `REAL[]` columns
+
+* Supports similarity calculations directly in SQL
+
+* Can be compiled as `.so`/`.dylib` extension
+
+* Sample usage:
+
+  ```sql
+  SELECT id, cosine_distance(v1, v2) FROM items;
+  ```
+
+* 🔗 [https://github.com/paratte/sqlite-extension-vector0](https://github.com/paratte/sqlite-extension-vector0)
+
+---
+
+### 🧠 4. [**sqlite-vec**](https://github.com/axibase/sqlite-vec)
+
+> SQLite extension for **vector operations**, distance metrics, and search.
+
+* Features:
+
+  * Euclidean, Cosine, Manhattan, Chebyshev, etc.
+  * Works well with JSON arrays as vector formats
+  * Can be embedded in analytical pipelines
+
+* 🔗 [https://github.com/axibase/sqlite-vec](https://github.com/axibase/sqlite-vec)
+
+---
+
+### 🔌 Honorable Mentions
+
+#### 📦 [**pg\_vector** for SQLite (via pg2sqlite)\*\*](https://github.com/prisma/pg2sqlite)
+
+* Not a native extension, but supports **PostgreSQL → SQLite** translation including vector types.
+* Useful for local inference prototyping in hybrid apps.
+
+---
+
+### ✅ Recommendation by Use Case
+
+| Use Case                    | Recommended Extension                                          |
+| --------------------------- | -------------------------------------------------------------- |
+| General nearest-neighbor    | [sqlite-vss](https://github.com/asg017/sqlite-vss) ✅           |
+| Lightweight / embedded use  | [vector0](https://github.com/paratte/sqlite-extension-vector0) |
+| Official SQLite experiment  | [vector-sqlite](https://github.com/sqlite/vector-sqlite)       |
+| Custom vector ops / metrics | [sqlite-vec](https://github.com/axibase/sqlite-vec)            |
+
+---
