@@ -37,6 +37,9 @@ As of version 3.42.0 (2023-05-16), the SQLite library consists of approximately 
 
 ---
 
+- [Extensions - by Gemini](#extensions---by-gemini)
+- [List of SQLite Extensions - by ChatGPT](#list-of-sqlite-extensions---by-chatgpt)
+
 ## Extensions - by Gemini
 
 Yes, using SQLite with its robust extension ecosystem is often a superior choice to creating or using a fork. Extensions provide specialized functionality while maintaining the stability and portability of the core SQLite library.
