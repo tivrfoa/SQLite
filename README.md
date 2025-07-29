@@ -27,6 +27,10 @@ You should choose a mature and battle-tested database software.
 
 Be careful with forks and rewrites — there’s often little to gain, but a lot to lose.
 
+There's probably an [extension](#list-of-sqlite-extensions---by-chatgpt) for everything that
+you want to do, enabling you to achive your goal while maintaining the stability and portability
+of the core SQLite library.
+
 ## How SQLite is tested
 
 From: [https://www.sqlite.org/testing.html](https://www.sqlite.org/testing.html)
