@@ -44,6 +44,7 @@ As of version 3.42.0 (2023-05-16), the SQLite library consists of approximately 
 - [Extensions - by Gemini](#extensions---by-gemini)
 - [List of SQLite Extensions - by ChatGPT](#list-of-sqlite-extensions---by-chatgpt)
 - [Extensions for Sync & Replication - by ChatGPT](#sqlite-extensions-for-sync--replication---by-chatgpt)
+- [How to create isolated Copy-on-Write branches - by Gemini](#how-to-create-isolated-copy-on-write-branches---by-gemini)
 
 ## Extensions - by Gemini
 
@@ -243,3 +244,61 @@ A **general-purpose database sync platform** supporting SQLite among many others
 [9]: https://litestream.io/?utm_source=chatgpt.com "Litestream - Streaming SQLite Replication"
 [10]: https://en.wikipedia.org/wiki/SymmetricDS?utm_source=chatgpt.com "SymmetricDS"
 [11]: https://www.reddit.com/r/sqlite/comments/1jay572/sqlite_session_extension_crdt/?utm_source=chatgpt.com "SQLite Session Extension + CRDT : r/sqlite - Reddit"
+
+## How to create isolated Copy-on-Write branches - by Gemini
+
+You can create isolated, copy-on-write (COW) branches for an SQLite database using **LiteFS**.
+
+SQLite doesn't have this feature built-in. LiteFS is a FUSE-based file system that exposes this functionality, allowing you to create cheap, instantaneous branches of your database, much like you would with Git.
+
+-----
+
+### Using LiteFS for Branching
+
+LiteFS works by intercepting file system calls to your SQLite database. When you create a branch, it doesn't duplicate the entire database. Instead, it creates a new layer that only stores the *changes* (new pages). Reads for unchanged data are served from the original database.
+
+#### How It Works
+
+1.  **Mount**: You run LiteFS and point it to a directory. It creates a "mount point" where your databases will be managed.
+2.  **Branch**: You issue a command to create a branch. LiteFS creates a new virtual database file for that branch.
+3.  **Write**: When you write to the branched database, LiteFS intercepts the write. It copies the original page, applies the change, and saves this new page to the branch's unique storage. This is the **copy-on-write** action.
+4.  **Read**: When you read from the branch, LiteFS first checks if a modified page exists in the branch's storage. If so, it returns it. If not, it reads the original, unmodified page from the main database.
+
+-----
+
+### Step-by-Step Example
+
+Here's how you'd typically use the `litefs` command-line tool.
+
+1.  **Mount the Database Directory**
+
+    First, you mount the directory containing your database using the `litefs mount` command.
+
+    ```bash
+    # Mounts the contents of './data' to the './mnt' directory
+    litefs mount ./mnt -config ./litefs.yml
+    ```
+
+2.  **Create a Branch**
+
+    Use the `litefs branch create` command to create a new branch. This operation is instant.
+
+    ```bash
+    # Create a branch named 'testing' for the 'my_app.db' database
+    litefs branch create my_app.db testing
+    ```
+
+3.  **Access the Branched Database**
+
+    LiteFS exposes branches as regular files in a special `.branches` directory within your mount point. You can now connect to this database file and your changes will be completely isolated to the `testing` branch.
+
+    Your application would connect to: `./mnt/.branches/testing/my_app.db`
+
+4.  **Merge Changes (Optional)**
+
+    After you're done with your work on the branch, you can merge the changes back into the main database.
+
+    ```bash
+    # Merge the 'testing' branch back into the main my_app.db
+    litefs branch merge my_app.db testing
+    ```
