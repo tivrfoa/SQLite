@@ -43,7 +43,7 @@ As of version 3.42.0 (2023-05-16), the SQLite library consists of approximately 
 
 - [Extensions - by Gemini](#extensions---by-gemini)
 - [List of SQLite Extensions - by ChatGPT](#list-of-sqlite-extensions---by-chatgpt)
-- [Extensions for Sync & Replication - by ChatGPT](#sqlite-extensions-for-sync--replication)
+- [Extensions for Sync & Replication - by ChatGPT](#sqlite-extensions-for-sync--replication---by-chatgpt)
 
 ## Extensions - by Gemini
 
@@ -157,49 +157,49 @@ Project page: [https://github.com/asg017/sqlite-ecosystem](https://github.com/as
 
 ---
 
-## SQLite Extensions for Sync & Replication
+## SQLite Extensions for Sync & Replication - by ChatGPT
 
-### 1. [Mycelite](https://github.com/mycelial/mycelite)
+#### 1. [Mycelite](https://github.com/mycelial/mycelite)
 
 A **VFS‑based extension** for **single‑writer, physical replication** between SQLite instances. It intercepts page writes and stores binary diffs for transmission and replay, creating bit‑perfect replicas. Currently supports only one active writer. ([GitHub][1], [Hacker News][2])
 
-### 2. [sqlite‑sync (SQLiteSync)](https://github.com/sqliteai/sqlite-sync)
+#### 2. [sqlite‑sync (SQLiteSync)](https://github.com/sqliteai/sqlite-sync)
 
 A **CRDT‑powered extension** that enables **multi‑master, conflict‑free synchronization** across devices—even offline. Changes merge automatically without conflict resolution logic. Ideal for real-time collaborative, local‑first apps. ([GitHub][3], [SQLite Cloud][4])
 
-### 3. [cr‑sqlite](https://github.com/vlcn-io/cr-sqlite)
+#### 3. [cr‑sqlite](https://github.com/vlcn-io/cr-sqlite)
 
 Transforms tables into **Conflict‑free Replicated Data Types**, enabling **logical, row‑level replication**, automatic merge resolution, and offline support via CRDTs. ([Hacker News][5], [SQLSync][6])
 
 ---
 
-## 🧱 Distributed SQLite Cluster Solutions
+### 🧱 Distributed SQLite Cluster Solutions
 
 These are full-fledged systems built around SQLite to handle replication at scale:
 
-### 4. [rqlite](https://github.com/rqlite/rqlite)
+#### 4. [rqlite](https://github.com/rqlite/rqlite)
 
 A **distributed database** layer on top of SQLite using the **Raft consensus protocol**. Enables **high‑availability, transactional replication** across nodes. Interaction happens via HTTP API rather than raw SQLite files. ([SQLite][7], [Hacker News][5])
 
-### 5. [LiteSync](https://litesync.io)
+#### 5. [LiteSync](https://litesync.io)
 
 A multi-master sync system letting all nodes write to their local SQLite, even offline. Synchronization is efficient and automatic, compressing only new data without full database transfers. Configurable via URI and works across mobile, desktop, and IoT. ([litesync.io][8])
 
-### 6. [Litestream](https://litestream.io)
+#### 6. [Litestream](https://litestream.io)
 
 A **streaming backup and replication tool** for SQLite that continuously pushes WAL frames (via file‑watchers) to durable object storage (e.g. S3). Great for point‑in‑time recovery and async replicas. Suited for read‑only failover rather than live write sync. ([litestream.io][9])
 
 ---
 
-## 🌐 External Sync Frameworks Supporting SQLite
+### 🌐 External Sync Frameworks Supporting SQLite
 
-### 7. [SymmetricDS](https://github.com/JumpMind/symmetric-ds)
+#### 7. [SymmetricDS](https://github.com/JumpMind/symmetric-ds)
 
 A **general-purpose database sync platform** supporting SQLite among many others. Provides **multi-master, filtered, and scheduled synchronization** across unreliable networks. Requires Java or server setup. ([Wikipedia][10])
 
 ---
 
-## 🧠 Community Insights & Hybrid Approaches
+### 🧠 Community Insights & Hybrid Approaches
 
 * SQLite’s official **“session” extension** can track change sets and be integrated with CRDT‑based logic (e.g., cr‑sqlite) for custom sync workflows. Reddit developers have successfully combined them:
 
@@ -209,7 +209,7 @@ A **general-purpose database sync platform** supporting SQLite among many others
 
 ---
 
-## 📋 Comparison Overview
+### 📋 Comparison Overview
 
 | Name        | Type                          | Sync Model           | Multi‑Writer?  | Install / Load                         |
 | ----------- | ----------------------------- | -------------------- | -------------- | -------------------------------------- |
@@ -223,7 +223,7 @@ A **general-purpose database sync platform** supporting SQLite among many others
 
 ---
 
-## ✅ Quick Recommendation
+### ✅ Quick Recommendation
 
 * For **offline-capable, conflict-free synchronization** across devices: go with **sqlite‑sync** or **cr‑sqlite**.
 * For simple **read-replica backup and point-in-time restores**: consider **Litestream**.
@@ -231,8 +231,6 @@ A **general-purpose database sync platform** supporting SQLite among many others
 * To build a custom sync workflow with direct SQLite schema control: use **session extension** plus **cr‑sqlite** or analog.
 
 ---
-
-Would you like clickable installation instructions, example usage code, or guidance choosing the best fit for your use case?
 
 [1]: https://github.com/mycelial/mycelite?utm_source=chatgpt.com "Mycelite is a SQLite extension that allows you to synchronize ..."
 [2]: https://news.ycombinator.com/item?id=36475081&utm_source=chatgpt.com "Mycelite: SQLite extension to synchronize changes ... - Hacker News"
