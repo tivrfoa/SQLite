@@ -94,3 +94,60 @@ Using the official SQLite core with extensions is almost always better than main
 * **Stability and Reliability**: The official SQLite core is one of the most rigorously tested software components in the world. A fork introduces custom code that has not undergone the same level of scrutiny, potentially introducing new bugs and instabilities.
 * **Interoperability**: Extensions are designed to be modular. You can load multiple extensions into the same database connection. Forks, however, are monolithic. If you need features from two different forks, it's impossible to combine them. With extensions, you simply load both.
 * **Ecosystem and Community Support**: By sticking with the official SQLite, you benefit from the entire ecosystem of tools, documentation, and community knowledge. When you have a problem, it's far easier to get help for standard SQLite with a well-known extension than for a custom, one-off fork. A fork isolates you from this community.
+
+## List of SQLite Extensions - by ChatGPT
+
+Here are **25 popular SQLite extensions**. These include general-purpose utility packs, data processing tools, and modern features like vector search and HTTP integration:
+
+---
+
+### 🧩 **[Sqlean Extensions (by Anton Zhiyanov)](https://github.com/nalgeon/sqlean)**
+
+A standard library of SQLite extensions — portable, fast, and easy to load.
+
+1. 🔐 [crypto](https://github.com/nalgeon/sqlean/tree/main/crypto) – hashing, encoding/decoding
+2. 📂 [fileio](https://github.com/nalgeon/sqlean/tree/main/fileio) – file system access
+3. 🧠 [fuzzy](https://github.com/nalgeon/sqlean/tree/main/fuzzy) – fuzzy string matching
+4. 🌐 [ipaddr](https://github.com/nalgeon/sqlean/tree/main/ipaddr) – IP address parsing
+5. ➕ [math](https://github.com/nalgeon/sqlean/tree/main/math) – extra math functions
+6. 🔍 [regexp](https://github.com/nalgeon/sqlean/tree/main/regexp) – regular expression matching
+7. 📊 [stats](https://github.com/nalgeon/sqlean/tree/main/stats) – statistics (mean, median, percentiles)
+8. 🔤 [text](https://github.com/nalgeon/sqlean/tree/main/text) – Unicode string functions
+9. ⏱️ [time](https://github.com/nalgeon/sqlean/tree/main/time) – extended date/time ops
+10. 🆔 [uuid](https://github.com/nalgeon/sqlean/tree/main/uuid) – UUID generation
+11. 📄 [vsv](https://github.com/nalgeon/sqlean/tree/main/vsv) – query CSV/TSV files
+12. 📐 [define](https://github.com/nalgeon/sqlean/tree/main/define) – define new SQL functions at runtime
+
+Bundle info: [https://antonz.org/sqlean](https://antonz.org/sqlean)
+
+---
+
+### 🔬 **[SQLite Ecosystem Extensions (by asg017)](https://github.com/asg017/sqlite-ecosystem)**
+
+Modern, composable extensions written in Rust and WASM for SQLite apps and CLI.
+
+13. 🌍 [sqlite-http](https://github.com/asg017/sqlite-http) – send HTTP requests from SQL
+14. 🕸️ [sqlite-html](https://github.com/asg017/sqlite-html) – parse HTML with CSS selectors
+15. 📁 [sqlite-lines](https://github.com/asg017/sqlite-lines) – read files line-by-line
+16. 🧭 [sqlite-path](https://github.com/asg017/sqlite-path) – manipulate file paths
+17. 🌐 [sqlite-url](https://github.com/asg017/sqlite-url) – parse and build URLs
+18. 🧬 [sqlite-ulid](https://github.com/asg017/sqlite-ulid) – generate sortable ULIDs
+19. 🔢 [sqlite-fastrand](https://github.com/asg017/sqlite-fastrand) – fast random numbers
+20. 🧠 [sqlite-vss](https://github.com/asg017/sqlite-vss) – vector similarity search
+21. 🧪 [sqlite-jsonschema](https://github.com/asg017/sqlite-jsonschema) – validate JSON with JSON Schema
+22. 🧮 [sqlite-regex](https://github.com/asg017/sqlite-regex) – Rust-based regex support
+
+Project page: [https://github.com/asg017/sqlite-ecosystem](https://github.com/asg017/sqlite-ecosystem)
+
+---
+
+### ⚡ Other Notable Extensions
+
+23. 🧠 [SQLite-Vector](https://github.com/asg017/sqlite-vss) – vector search with index support
+24. 🤖 [SQLite-AI](https://github.com/sqlite/sqlite/blob/trunk/ext/ai/README.md) – run AI models in SQL (experimental)
+25. 🔁 [rqlite Extensions](https://github.com/rqlite/rqlite/tree/main/contrib) – examples include `rot13`, `carray`, and ICU support
+
+---
+
+Let me know if you'd like a downloadable markdown/HTML version of this list, usage examples, or installation tips.
+
